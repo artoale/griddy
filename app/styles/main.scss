@@ -1,9 +1,13 @@
 @import "compass_twitter_bootstrap";
+@import "compass/css3/transition";
+
+$detailBackground: #333;
+
 .gritem {
     background-color: gray;
     margin-bottom: 20px;
     font-family: "Arial";
-    font-size: 40px;
+    font-size: 30px;
     line-height: 40px;
     overflow: hidden;
     cursor: pointer;
@@ -16,11 +20,33 @@
 // }
 .none {
     display: none;
+    height: 0px;
 }
 
-.rowcontent {
-    min-height: 300px;
-    background-color: #333;
-    margin-top: -5px;
-    margin-bottom: 10px;
+.rowsign {
+    margin-top: -20px;
+
 }
+
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid $detailBackground;
+    margin-left: 30px;
+}
+.rowcontent {
+    color: #f1f1f1;
+    height: 500px;
+    overflow: hidden;
+    background-color: $detailBackground;
+    // background-image: -webkit-radial-gradient(circle , lighten($detailBackground,5%), $detailBackground,$detailBackground);
+    margin-top: -5px;
+    margin-bottom: 20px;
+    @include transition-duration(.3s);
+    @include transition-property(all);
+
+}
+
+

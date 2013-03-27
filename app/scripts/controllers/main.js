@@ -2,18 +2,18 @@
 
 angular.module('griddyApp')
     .controller('MainCtrl', function ($scope) {
-    $scope.pippo = 'MERDAAAA';
+    $scope.pippo = 'TEST PARENT SCOPE';
     var items = [{
         content: 'Eurecom',
-        target: 'ABCDEFGHILMNOPQRSTUVWXYZ'
+        target: 'ABCMNOPQRSTUVWXYZ'
     },
     {
         content: 'Aliquam error culpa .',
-        target: 'ABCDEFGHILMNOPQRSTUVWXYZ'
+        target: 'ABCDEFGHILMNYZ'
     },
     {
         content: 'Nemo nostrum usamus odio.',
-        target: 'ABCDEFGHILMNOPQRSTUVWXYZ'
+        target: 'ABCDEFGHILMNOYZ'
     },
     {
         content: 'Iure dignissimos s fuga!',
@@ -50,8 +50,23 @@ angular.module('griddyApp')
     {
         content: 'Iste noempore enim veritatis?, target: ',
         target: 'ABCDEFGHILMNOPQRSTUVWXYZ'
+    },
+    {
+        content: 'Iste noempore enim veritatis?, target: ',
+        target: 'ABCDEFGHILMNOPQRSTUVWXYZ'
+    },
+    {
+        content: 'Iste noempore enim veritatis?, target: ',
+        target: 'ABCDEFGHILMNOPQRSTUVWXYZ'
+    },
+    {
+        content: 'Iste noempore enim veritatis?, target: ',
+        target: 'ABCDEFGHILMNOPQRSTUVWXYZ'
+    },
+    {
+        content: 'Iste noempore enim veritatis?, target: ',
+        target: 'ABCDEFGHILMNOPQRSTUVWXYZ'
     }];
-
     $scope.items = items;
     $scope.getContent = function (target) {
 

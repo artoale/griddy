@@ -1,13 +1,18 @@
 'use strict';
 
 angular.module('griddyApp')
-    .directive('griddy', function () {
+    .directive('griddy', function ($timeout) {
     return {
         template: [
             '<div class="container" >',
             '   <div class="row griddyrow" ng-repeat="row in rows">',
             '       <div ng-click="select(gritem)" class="gritem square{{spanSize}} span{{spanSize}}" ng-repeat="gritem in row">{{gritem.title}}</div>',
-            '       <div  class="span12 rowcontent" ng-show="gritem.selected" ng-repeat="gritem in row" bind-dom="gritem.content"></div>',
+            '       <div  ng-repeat="gritem in row" >',
+            '           <div class="span{{spanSize}} offset{{$index*spanSize}} rowsign" ng-show="gritem.selected">',
+            '           <div class="triangle"></div>',
+            '           </div>',
+            '           <div class="span12 rowcontent" ng-style="getStyle(gritem)" bind-dom="gritem.content"></div>',
+            '       </div>',
             '   </div>',
             '<div class="trans" ng-transclude></div>',
             '</div>'
@@ -22,6 +27,14 @@ angular.module('griddyApp')
             $scope.spanSize = Math.floor(12 / ncols);
             $scope.rows = rows;
 
+            $scope.getStyle = function (gritem) {
+                if (gritem.selected) {
+                    return {};
+                } else {
+                    // alert('hidden!');
+                    return {height:'0px',marginBottom:'0px'};
+                }
+            };
             this.addBlock = function (gritem) {
                 var newIndex = 1;
 
@@ -39,12 +52,21 @@ angular.module('griddyApp')
 
             $scope.select = function (gritem) {
                 var status = gritem.selected;
+                var oneSelected = false;
                 rows.forEach(function (row) {
                     row.forEach(function (item) {
+                        oneSelected = oneSelected || item.selected;
                         item.selected = null;
                     });
                 });
-                gritem.selected = !status;
+                if (oneSelected) {
+                    $timeout(function () {
+                        gritem.selected = !status;
+                    }, 500);
+                } else {
+                    gritem.selected = !status;
+                }
+
             };
 
 
@@ -59,7 +81,7 @@ angular.module('griddyApp')
         transclude: true,
         scope: {
             title: '=',
-            target: '='
+
         },
         compile: function (element, attrs, transclude) {
             // transclude;
@@ -75,7 +97,7 @@ angular.module('griddyApp')
 
 
                 // console.log(content[1]);
-                scope.target = scope.target || scope.content;
+
                 // console.log(scope);
                 scope.getContent = function () {
                     return griddyCtrl.getHandler()(scope.target);
